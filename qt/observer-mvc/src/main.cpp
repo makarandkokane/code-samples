@@ -9,6 +9,7 @@ namespace
 constexpr int kScreenshotDelayMs = 400;
 }
 
+// Entry point: builds the window and wires the --screenshot automation flag.
 int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
@@ -17,6 +18,7 @@ int main(int argc, char* argv[])
     QCommandLineParser parser;
     parser.setApplicationDescription(QStringLiteral("Observer / MVC demo (Qt Widgets)"));
     parser.addHelpOption();
+
     const QCommandLineOption screenshotOption(
         QStringLiteral("screenshot"),
         QStringLiteral("Save a PNG of the window to <file> and exit."), QStringLiteral("file"));

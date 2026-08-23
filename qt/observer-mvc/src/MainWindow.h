@@ -11,6 +11,7 @@ class QTableView;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
+
 public:
     explicit MainWindow(QWidget* parent = nullptr);
 
@@ -19,7 +20,10 @@ private:
     void createToolbar();
     void updateRemoveAction();
 
-    ItemModel* m_model = nullptr;
+    // the subject and the one view the window itself owns
+    ItemModel*  m_model = nullptr;
     QTableView* m_table = nullptr;
+
+    // toolbar state that follows the selection
     QAction* m_removeAction = nullptr;
 };

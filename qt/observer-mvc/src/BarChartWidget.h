@@ -12,6 +12,7 @@ class QPainter;
 class BarChartWidget : public QWidget
 {
     Q_OBJECT
+
 public:
     explicit BarChartWidget(const ItemModel* model, QWidget* parent = nullptr);
 
@@ -32,10 +33,11 @@ private:
     };
 
     ChartLayout computeLayout(const QList<Item>& items) const;
-    void drawNoItemsHint(QPainter& painter);
-    void drawNoModelHint(QPainter& painter);
-    void drawItemRow(QPainter& painter, const Item& item, const ChartLayout& layout, int y);
-    void forgetModel();
+    void        drawNoItemsHint(QPainter& painter);
+    void        drawNoModelHint(QPainter& painter);
+    void        drawItemRow(QPainter& painter, const Item& item, const ChartLayout& layout, int y);
+    void        forgetModel();
 
+    // the observed subject; cleared, never dereferenced, once destroyed() fires
     const ItemModel* m_model = nullptr;
 };

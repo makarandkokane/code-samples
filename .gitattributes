@@ -1,0 +1,7 @@
+# Line endings are pinned to LF, in the repo and in the working copy, so a
+# clone reads the same on any OS. Git for Windows ships core.autocrlf=true,
+# which would otherwise check these sources out as CRLF.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary

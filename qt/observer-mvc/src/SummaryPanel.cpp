@@ -8,9 +8,11 @@
 namespace
 {
 constexpr int kHorizontalMargin = 12;
-constexpr int kVerticalMargin = 6;
+constexpr int kVerticalMargin   = 6;
 }
 
+// Builds the label and subscribes to the same five signals as every other
+// observer of the model.
 SummaryPanel::SummaryPanel(const ItemModel* model, QWidget* parent)
     : QWidget(parent),
       m_model(model),
@@ -36,6 +38,7 @@ SummaryPanel::SummaryPanel(const ItemModel* model, QWidget* parent)
     rebuildText();
 }
 
+// The subject is gone: drop the pointer and switch to the gone-state text.
 void SummaryPanel::forgetModel()
 {
     // destroyed() is emitted from ~QObject, once ~ItemModel has already run: the
@@ -44,6 +47,7 @@ void SummaryPanel::forgetModel()
     rebuildText();
 }
 
+// Recomputes the one-line aggregate: count, total, and the largest item.
 void SummaryPanel::rebuildText()
 {
     if (!m_model)
@@ -59,9 +63,9 @@ void SummaryPanel::rebuildText()
         return;
     }
 
-    const int maxRow = m_model->maxValueRow();
-    const Item& largest = items.at(maxRow);
-    const QString text = tr("%1 items, total %2, largest: %3 (%4)")
+    const int     maxRow  = m_model->maxValueRow();
+    const Item&   largest = items.at(maxRow);
+    const QString text    = tr("%1 items, total %2, largest: %3 (%4)")
                              .arg(items.size())
                              .arg(m_model->total())
                              .arg(largest.name)

@@ -9,5 +9,6 @@ By [Makarand Kokane](https://makarandkokane.github.io/).
 | Demo | Technology | What it shows |
 |------|------------|---------------|
 | [observer-mvc](qt/observer-mvc/) | Qt Widgets | One model, three synchronized views: the observer pattern as Qt ships it |
+| [event-loop-thread](qt/event-loop-thread/) | Qt Widgets | Ten threads sell tickets, one event loop owns 100,000 seats, and there is not a lock in sight |
 
 <!-- Planned technology groups: qt/ qml/ modern-cpp/ vtk/ opengl/ data-structures/ -->

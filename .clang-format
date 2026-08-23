@@ -1,7 +1,9 @@
 # Code style for every demo in this repo. The deliberate choices:
 # opening braces always start on their own line, everywhere, and
 # constructor initializers get one line each, never packed. Blank lines
-# are the chunking tool, so at most one survives anywhere.
+# are the chunking tool, so at most one survives anywhere. Runs of
+# declarations and assignments with nothing between them line up as
+# columns; a blank line or a comment starts a fresh column group.
 BasedOnStyle: LLVM
 Language: Cpp
 Standard: c++17
@@ -18,6 +20,8 @@ BreakConstructorInitializers: BeforeColon
 ConstructorInitializerIndentWidth: 4
 MaxEmptyLinesToKeep: 1
 KeepEmptyLinesAtTheStartOfBlocks: false
+AlignConsecutiveDeclarations: Consecutive
+AlignConsecutiveAssignments: Consecutive
 AllowShortIfStatementsOnASingleLine: Never
 AllowShortLoopsOnASingleLine: false
 BreakBeforeBraces: Custom

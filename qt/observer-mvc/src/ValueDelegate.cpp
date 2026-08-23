@@ -8,11 +8,14 @@ constexpr int kMinValue = 0;
 constexpr int kMaxValue = 9999;
 }
 
+// Nothing to configure up front: the work happens in createEditor.
 ValueDelegate::ValueDelegate(QObject* parent)
     : QStyledItemDelegate(parent)
 {
 }
 
+// Returns the stock integer editor, minus the arrows that crowd a narrow
+// column, and with a range a real value actually fits in.
 QWidget* ValueDelegate::createEditor(QWidget* parent, const QStyleOptionViewItem& option,
                                      const QModelIndex& index) const
 {

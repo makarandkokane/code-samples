@@ -8,6 +8,7 @@
 class ValueDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
+
 public:
     explicit ValueDelegate(QObject* parent = nullptr);
 

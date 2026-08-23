@@ -14,10 +14,12 @@
 
 namespace
 {
-constexpr int kInitialWidth = 720;
+constexpr int kInitialWidth  = 720;
 constexpr int kInitialHeight = 400;
 }
 
+// The model comes first: every view constructed after it subscribes to it in
+// its own constructor.
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
       m_model(new ItemModel(this))
@@ -28,6 +30,8 @@ MainWindow::MainWindow(QWidget* parent)
     resize(kInitialWidth, kInitialHeight);
 }
 
+// The three observers side by side: the table edits the model, the chart and
+// the summary only watch it.
 void MainWindow::createViews()
 {
     m_table = new QTableView(this);
@@ -41,7 +45,7 @@ void MainWindow::createViews()
     m_table->verticalHeader()->setVisible(false);
     m_table->setItemDelegateForColumn(ItemModel::Column::ValueColumn, new ValueDelegate(this));
 
-    auto* chart = new BarChartWidget(m_model, this);
+    auto* chart   = new BarChartWidget(m_model, this);
     auto* summary = new SummaryPanel(m_model, this);
 
     auto* splitter = new QSplitter(this);
@@ -52,12 +56,14 @@ void MainWindow::createViews()
     splitter->setChildrenCollapsible(false);
 
     auto* central = new QWidget(this);
-    auto* layout = new QVBoxLayout(central);
+    auto* layout  = new QVBoxLayout(central);
     layout->addWidget(splitter, 1);
     layout->addWidget(summary);
     setCentralWidget(central);
 }
 
+// Add, remove and reset all talk to the model alone; the views find out from
+// the model, never from the toolbar.
 void MainWindow::createToolbar()
 {
     auto* toolbar = addToolBar(tr("Actions"));
@@ -85,6 +91,7 @@ void MainWindow::createToolbar()
     updateRemoveAction();
 }
 
+// Remove is only offered while a row is actually selected.
 void MainWindow::updateRemoveAction()
 {
     m_removeAction->setEnabled(m_table->selectionModel()->hasSelection());
