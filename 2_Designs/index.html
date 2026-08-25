@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design: code-samples</title>
+<link rel="stylesheet" href="../docs.css">
+</head>
+<body>
+<header class="doc">
+  <div class="wrap">
+    <p class="crumb"><a href="../index.html">code-samples</a></p>
+    <p class="kind">Design</p>
+  </div>
+</header>
+<main class="wrap">
+  <h1>Design</h1>
+  <p class="lede">The pieces that carry the requirements, and the decisions worth arguing about.</p>
+  <nav class="docnav" aria-label="The three documents">
+    <a class="r" href="../1_Requirements/index.html">Requirements</a>
+    <a class="d" href="index.html" aria-current="page">Design</a>
+    <a class="t" href="../3_Tests/index.html">Tests</a>
+  </nav>
+  <h2>One per demo</h2>
+  <section class="item">
+    <h3>observer-mvc</h3>
+    <ul>
+      <li>9 design elements: the subject, the observers, the mediator, and the two decisions that keep the pattern honest.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Read</span>
+      <a class="box d" href="observer-mvc/design.html">Design</a>
+      <span class="tlabel">Alongside</span>
+      <a class="box r" href="../1_Requirements/observer-mvc/requirements.html">Requirements</a>
+      <a class="box t" href="../3_Tests/observer-mvc/tests.html">Tests</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/tree/main/qt/observer-mvc">GitHub</a>
+    </p>
+  </section>
+  <section class="item">
+    <h3>event-loop-thread</h3>
+    <ul>
+      <li>8 design elements: the queue standing in for mutual exclusion, the heartbeat that keeps the window alive, and the shutdown order that once crashed.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Read</span>
+      <a class="box d" href="event-loop-thread/design.html">Design</a>
+      <span class="tlabel">Alongside</span>
+      <a class="box r" href="../1_Requirements/event-loop-thread/requirements.html">Requirements</a>
+      <a class="box t" href="../3_Tests/event-loop-thread/tests.html">Tests</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/tree/main/qt/event-loop-thread">GitHub</a>
+    </p>
+  </section>
+  <section class="item">
+    <h3>linked-list</h3>
+    <ul>
+      <li>9 design elements: the contract, one function per operation, merge sort, and the game that hands back a straight list.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Read</span>
+      <a class="box d" href="linked-list/design.html">Design</a>
+      <span class="tlabel">Alongside</span>
+      <a class="box r" href="../1_Requirements/linked-list/requirements.html">Requirements</a>
+      <a class="box t" href="../3_Tests/linked-list/tests.html">Tests</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/tree/main/data-structures/linked-list">GitHub</a>
+    </p>
+  </section>
+  <h2>How these are written</h2>
+  <section class="item">
+    <ul>
+      <li>Every design element names the requirements it carries, and the tests that exercise it.</li>
+      <li>Decisions that could reasonably have gone the other way are called out on their own, with the reason.</li>
+      <li>Where an element maps to one file it links that file, so the trail runs from a requirement all the way to the code.</li>
+    </ul>
+  </section>
+</main>
+<footer class="doc">
+  <div class="wrap">
+    <p>The code lives on <a href="https://github.com/makarandkokane/code-samples">GitHub</a> &middot; <a href="https://makarandkokane.github.io/">makarandkokane.github.io</a></p>
+  </div>
+</footer>
+</body>
+</html>

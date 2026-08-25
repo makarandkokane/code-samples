@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Linked list: requirements</title>
+<link rel="stylesheet" href="../../docs.css">
+</head>
+<body>
+<header class="doc">
+  <div class="wrap">
+    <p class="crumb"><a href="../../index.html">code-samples</a> &middot; <a href="../index.html">Requirements</a> &middot; Linked list</p>
+    <p class="kind">Requirements</p>
+  </div>
+</header>
+<main class="wrap">
+  <h1>Linked list: requirements</h1>
+  <p class="lede">What the menu program has to do, and who it is written for.</p>
+  <nav class="docnav" aria-label="Documents for this demo">
+    <a class="r" href="requirements.html" aria-current="page">Requirements</a>
+    <a class="d" href="../../2_Designs/linked-list/design.html">Design</a>
+    <a class="t" href="../../3_Tests/linked-list/tests.html">Tests</a>
+    <a href="https://github.com/makarandkokane/code-samples/tree/main/data-structures/linked-list">Code</a>
+  </nav>
+  <h2>The program</h2>
+  <section class="item" id="LL-R1">
+    <h3><span class="id">LL-R1</span>Plain C and nothing else</h3>
+    <ul>
+      <li>C11 and the standard library only, with no C++ and no frameworks.</li>
+      <li>It builds from one command line with two source files, and with CMake for people who prefer that.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D1">LL-D1</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T7">LL-T7</a>
+      <a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T9">LL-T9</a>
+    </p>
+  </section>
+  <section class="item" id="LL-R2">
+    <h3><span class="id">LL-R2</span>One menu item per operation</h3>
+    <ul>
+      <li>Eighteen operations in four groups: build, query, rearrange, and the circle.</li>
+      <li>Each item is answered by one small function, so a reader can read just the one they came for.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D1">LL-D1</a>
+      <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D2">LL-D2</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T1">LL-T1</a>
+    </p>
+  </section>
+  <section class="item" id="LL-R3">
+    <h3><span class="id">LL-R3</span>The list is always on screen</h3>
+    <ul>
+      <li>After every operation the list is drawn as boxes and arrows with a node count.</li>
+      <li>A circle ends with the way back to its head instead of NULL.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D3">LL-D3</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T2">LL-T2</a>
+    </p>
+  </section>
+  <h2>The classics</h2>
+  <section class="item" id="LL-R4">
+    <h3><span class="id">LL-R4</span>The classics, answered the classic way</h3>
+    <ul>
+      <li>Reverse, merge sort, the middle node, the nth node from the end, and a palindrome check.</li>
+      <li>Loop detection is the tortoise and the hare, run for real rather than read off a flag.</li>
+      <li>Merge sort is chosen on purpose: it is the list's own sort, with no jumping to an index.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D5">LL-D5</a>
+      <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D6">LL-D6</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T3">LL-T3</a>
+      <a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T4">LL-T4</a>
+    </p>
+  </section>
+  <section class="item" id="LL-R5">
+    <h3><span class="id">LL-R5</span>A circle, and a game to justify it</h3>
+    <ul>
+      <li>The list can be bent into a circle, detected, broken, and rotated left by k.</li>
+      <li>The Josephus game counts every k-th person out of a fresh ring and prints the ring each round.</li>
+      <li>An oversized k must wrap rather than fail.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D7">LL-D7</a>
+      <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D8">LL-D8</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T5">LL-T5</a>
+    </p>
+  </section>
+  <section class="item" id="LL-R6">
+    <h3><span class="id">LL-R6</span>A question must not change the answer</h3>
+    <ul>
+      <li>The palindrome check reverses half the list to compare it, then puts it back exactly as it was.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D6">LL-D6</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T4">LL-T4</a>
+    </p>
+  </section>
+  <h2>Safety</h2>
+  <section class="item" id="LL-R7">
+    <h3><span class="id">LL-R7</span>A circle must never hang the program</h3>
+    <ul>
+      <li>Operations that walk toward NULL refuse to run while the list is a circle, and say why.</li>
+      <li>The drawing and the counting are safe on a circle, since both stop at the head.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D3">LL-D3</a>
+      <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D4">LL-D4</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T6">LL-T6</a>
+    </p>
+  </section>
+  <section class="item" id="LL-R8">
+    <h3><span class="id">LL-R8</span>Readable before clever</h3>
+    <ul>
+      <li>Every function that takes a node pointer lives in the list module.</li>
+      <li>The menu file keeps the typing, the guards and the program state, and nothing else.</li>
+      <li>Small functions, named constants, and comments that say why rather than what.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D1">LL-D1</a>
+      <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D4">LL-D4</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T7">LL-T7</a>
+      <a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T8">LL-T8</a>
+    </p>
+  </section>
+  <section class="item" id="LL-R9">
+    <h3><span class="id">LL-R9</span>Menu numbers are append-only</h3>
+    <ul>
+      <li>A new item takes the next free number and is shown inside its group.</li>
+      <li>So a transcript written a year ago still describes the same session today.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D9">LL-D9</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T8">LL-T8</a>
+    </p>
+  </section>
+  <section class="item" id="LL-R10">
+    <h3><span class="id">LL-R10</span>Nothing is left behind</h3>
+    <ul>
+      <li>Clearing the list frees every node, and so does quitting, whether the list is straight or a circle.</li>
+      <li>A circle is straightened before it is freed, since it has no NULL for the freeing walk to stop at.</li>
+      <li>The game frees each person as they leave the ring.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D4">LL-D4</a>
+      <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D8">LL-D8</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T9">LL-T9</a>
+    </p>
+  </section>
+  <h2>Coverage at a glance</h2>
+  <div class="scroller">
+    <table class="matrix">
+      <tr><th>Requirement</th><th>What it asks for</th><th>Design</th><th>Tests</th></tr>
+      <tr><td><a class="box r" href="#LL-R1">LL-R1</a></td><td>Plain C and nothing else</td><td><a class="box d" href="../../2_Designs/linked-list/design.html#LL-D1">LL-D1</a> </td><td><a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T7">LL-T7</a> <a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T9">LL-T9</a> </td></tr>
+      <tr><td><a class="box r" href="#LL-R2">LL-R2</a></td><td>One menu item per operation</td><td><a class="box d" href="../../2_Designs/linked-list/design.html#LL-D1">LL-D1</a> <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D2">LL-D2</a> </td><td><a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T1">LL-T1</a> </td></tr>
+      <tr><td><a class="box r" href="#LL-R3">LL-R3</a></td><td>The list is always on screen</td><td><a class="box d" href="../../2_Designs/linked-list/design.html#LL-D3">LL-D3</a> </td><td><a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T2">LL-T2</a> </td></tr>
+      <tr><td><a class="box r" href="#LL-R4">LL-R4</a></td><td>The classics, answered the classic way</td><td><a class="box d" href="../../2_Designs/linked-list/design.html#LL-D5">LL-D5</a> <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D6">LL-D6</a> </td><td><a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T3">LL-T3</a> <a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T4">LL-T4</a> </td></tr>
+      <tr><td><a class="box r" href="#LL-R5">LL-R5</a></td><td>A circle, and a game to justify it</td><td><a class="box d" href="../../2_Designs/linked-list/design.html#LL-D7">LL-D7</a> <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D8">LL-D8</a> </td><td><a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T5">LL-T5</a> </td></tr>
+      <tr><td><a class="box r" href="#LL-R6">LL-R6</a></td><td>A question must not change the answer</td><td><a class="box d" href="../../2_Designs/linked-list/design.html#LL-D6">LL-D6</a> </td><td><a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T4">LL-T4</a> </td></tr>
+      <tr><td><a class="box r" href="#LL-R7">LL-R7</a></td><td>A circle must never hang the program</td><td><a class="box d" href="../../2_Designs/linked-list/design.html#LL-D3">LL-D3</a> <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D4">LL-D4</a> </td><td><a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T6">LL-T6</a> </td></tr>
+      <tr><td><a class="box r" href="#LL-R8">LL-R8</a></td><td>Readable before clever</td><td><a class="box d" href="../../2_Designs/linked-list/design.html#LL-D1">LL-D1</a> <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D4">LL-D4</a> </td><td><a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T7">LL-T7</a> <a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T8">LL-T8</a> </td></tr>
+      <tr><td><a class="box r" href="#LL-R9">LL-R9</a></td><td>Menu numbers are append-only</td><td><a class="box d" href="../../2_Designs/linked-list/design.html#LL-D9">LL-D9</a> </td><td><a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T8">LL-T8</a> </td></tr>
+      <tr><td><a class="box r" href="#LL-R10">LL-R10</a></td><td>Nothing is left behind</td><td><a class="box d" href="../../2_Designs/linked-list/design.html#LL-D4">LL-D4</a> <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D8">LL-D8</a> </td><td><a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T9">LL-T9</a> </td></tr>
+    </table>
+  </div>
+</main>
+<footer class="doc">
+  <div class="wrap">
+    <p>Linked list &middot; <a href="https://github.com/makarandkokane/code-samples/tree/main/data-structures/linked-list">the code this describes</a> &middot; <a href="https://makarandkokane.github.io/">makarandkokane.github.io</a></p>
+  </div>
+</footer>
+</body>
+</html>

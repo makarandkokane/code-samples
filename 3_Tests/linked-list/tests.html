@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Linked list: tests</title>
+<link rel="stylesheet" href="../../docs.css">
+</head>
+<body>
+<header class="doc">
+  <div class="wrap">
+    <p class="crumb"><a href="../../index.html">code-samples</a> &middot; <a href="../index.html">Tests</a> &middot; Linked list</p>
+    <p class="kind">Tests</p>
+  </div>
+</header>
+<main class="wrap">
+  <h1>Linked list: tests</h1>
+  <p class="lede">How each requirement was checked, with the exact sessions and compiler runs used.</p>
+  <nav class="docnav" aria-label="Documents for this demo">
+    <a class="r" href="../../1_Requirements/linked-list/requirements.html">Requirements</a>
+    <a class="d" href="../../2_Designs/linked-list/design.html">Design</a>
+    <a class="t" href="tests.html" aria-current="page">Tests</a>
+    <a href="https://github.com/makarandkokane/code-samples/tree/main/data-structures/linked-list">Code</a>
+  </nav>
+  <h2>Behaviour</h2>
+  <section class="item" id="LL-T1">
+    <h3><span class="id">LL-T1</span>Every menu item is exercised</h3>
+    <ul>
+      <li>Drive the program by piping a session, one line per keystroke: <code>printf '5\n9\n10\n0\n' | linked-list</code>.</li>
+      <li>Pass: all eighteen items run, plus the three input mistakes, an unknown number, junk at the menu, and junk at a value prompt.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/linked-list/requirements.html#LL-R2">LL-R2</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D1">LL-D1</a>
+      <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D2">LL-D2</a>
+    </p>
+  </section>
+  <section class="item" id="LL-T2">
+    <h3><span class="id">LL-T2</span>The drawing matches the list</h3>
+    <ul>
+      <li>Compare the printed line against the operation just performed.</li>
+      <li>Pass: the values and their order match, the node count matches, and a circle is tagged as circular.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/linked-list/requirements.html#LL-R3">LL-R3</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D3">LL-D3</a>
+    </p>
+  </section>
+  <section class="item" id="LL-T3">
+    <h3><span class="id">LL-T3</span>Sort, reverse and dedup on a known list</h3>
+    <ul>
+      <li>Load the sample list, which carries two repeats on purpose, then reverse, sort and remove duplicates.</li>
+      <li>Pass: the sorted output is ascending, the reversed output is the exact mirror, and two duplicates are reported removed.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/linked-list/requirements.html#LL-R4">LL-R4</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D5">LL-D5</a>
+    </p>
+  </section>
+  <section class="item" id="LL-T4">
+    <h3><span class="id">LL-T4</span>The questions, and the list afterwards</h3>
+    <ul>
+      <li>Ask for the middle, the nth from the end, and the palindrome verdict on a known list.</li>
+      <li>Pass: each answer is right for that list, and the list printed after the palindrome check is unchanged.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/linked-list/requirements.html#LL-R4">LL-R4</a>
+      <a class="box r" href="../../1_Requirements/linked-list/requirements.html#LL-R6">LL-R6</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D6">LL-D6</a>
+    </p>
+  </section>
+  <section class="item" id="LL-T5">
+    <h3><span class="id">LL-T5</span>The game, against the legend</h3>
+    <ul>
+      <li>Play seven people with k of three, then forty-one with k of three, then three people with k of forty-one.</li>
+      <li>Pass: survivor four, then survivor thirty-one, which is where the story says Josephus stood.</li>
+      <li>Pass: the oversized k wraps and still names a survivor.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/linked-list/requirements.html#LL-R5">LL-R5</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D7">LL-D7</a>
+      <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D8">LL-D8</a>
+    </p>
+  </section>
+  <section class="item" id="LL-T6">
+    <h3><span class="id">LL-T6</span>A circle refuses the linear work</h3>
+    <ul>
+      <li>Make the list circular, then try to reverse, sort, search and insert.</li>
+      <li>Pass: each one refuses with the same sentence, detection and breaking still work, and nothing walks forever.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/linked-list/requirements.html#LL-R7">LL-R7</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D3">LL-D3</a>
+      <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D4">LL-D4</a>
+    </p>
+  </section>
+  <h2>Static check</h2>
+  <section class="item" id="LL-T7">
+    <h3><span class="id">LL-T7</span>It builds clean, twice</h3>
+    <ul>
+      <li>Compile with <code>clang -std=c11 -Wall -Wextra -Wpedantic</code>, and again through CMake.</li>
+      <li>Pass: no warnings from either, and a clang-format check that reports nothing to change.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/linked-list/requirements.html#LL-R1">LL-R1</a>
+      <a class="box r" href="../../1_Requirements/linked-list/requirements.html#LL-R8">LL-R8</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D1">LL-D1</a>
+    </p>
+  </section>
+  <section class="item" id="LL-T8">
+    <h3><span class="id">LL-T8</span>The numbering promise holds</h3>
+    <ul>
+      <li>Read the menu against the enum: the four newest items are fifteen to eighteen.</li>
+      <li>Pass: each is displayed inside its group, and no older item has changed number.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/linked-list/requirements.html#LL-R8">LL-R8</a>
+      <a class="box r" href="../../1_Requirements/linked-list/requirements.html#LL-R9">LL-R9</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D9">LL-D9</a>
+    </p>
+  </section>
+  <section class="item" id="LL-T9">
+    <h3><span class="id">LL-T9</span>No memory errors on the way through</h3>
+    <ul>
+      <li>Rebuild with the address sanitizer, then rerun the sessions, the game, and a quit while the list is a circle.</li>
+      <li>Pass: no invalid access and no double free on any run.</li>
+      <li>Not claimed here: leak counting. The sanitizer's leak checker does not run on this platform, so the freeing paths are read rather than measured.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/linked-list/requirements.html#LL-R1">LL-R1</a>
+      <a class="box r" href="../../1_Requirements/linked-list/requirements.html#LL-R10">LL-R10</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D4">LL-D4</a>
+      <a class="box d" href="../../2_Designs/linked-list/design.html#LL-D8">LL-D8</a>
+    </p>
+  </section>
+</main>
+<footer class="doc">
+  <div class="wrap">
+    <p>Linked list &middot; <a href="https://github.com/makarandkokane/code-samples/tree/main/data-structures/linked-list">the code this describes</a> &middot; <a href="https://makarandkokane.github.io/">makarandkokane.github.io</a></p>
+  </div>
+</footer>
+</body>
+</html>

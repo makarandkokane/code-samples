@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Observer and MVC: requirements</title>
+<link rel="stylesheet" href="../../docs.css">
+</head>
+<body>
+<header class="doc">
+  <div class="wrap">
+    <p class="crumb"><a href="../../index.html">code-samples</a> &middot; <a href="../index.html">Requirements</a> &middot; Observer and MVC</p>
+    <p class="kind">Requirements</p>
+  </div>
+</header>
+<main class="wrap">
+  <h1>Observer and MVC: requirements</h1>
+  <p class="lede">What the demo has to show, and the rules it has to keep while showing it.</p>
+  <nav class="docnav" aria-label="Documents for this demo">
+    <a class="r" href="requirements.html" aria-current="page">Requirements</a>
+    <a class="d" href="../../2_Designs/observer-mvc/design.html">Design</a>
+    <a class="t" href="../../3_Tests/observer-mvc/tests.html">Tests</a>
+    <a href="https://github.com/makarandkokane/code-samples/tree/main/qt/observer-mvc">Code</a>
+  </nav>
+  <h2>The model and the views</h2>
+  <section class="item" id="OM-R1">
+    <h3><span class="id">OM-R1</span>One source of truth</h3>
+    <ul>
+      <li>The item data lives in exactly one object.</li>
+      <li>No view keeps its own copy of the data.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D1">OM-D1</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/observer-mvc/tests.html#OM-T1">OM-T1</a>
+      <a class="box t" href="../../3_Tests/observer-mvc/tests.html#OM-T4">OM-T4</a>
+    </p>
+  </section>
+  <section class="item" id="OM-R2">
+    <h3><span class="id">OM-R2</span>Three views of the same data</h3>
+    <ul>
+      <li>An editable table, a bar chart, and a one-line summary.</li>
+      <li>All three agree at all times, with no refresh button anywhere.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D2">OM-D2</a>
+      <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D3">OM-D3</a>
+      <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D4">OM-D4</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/observer-mvc/tests.html#OM-T1">OM-T1</a>
+      <a class="box t" href="../../3_Tests/observer-mvc/tests.html#OM-T4">OM-T4</a>
+    </p>
+  </section>
+  <section class="item" id="OM-R3">
+    <h3><span class="id">OM-R3</span>The views do not know each other</h3>
+    <ul>
+      <li>No view holds a pointer, a reference or a signal connection to another view.</li>
+      <li>A reader can check it: search each hand-written view for the other's class name.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D5">OM-D5</a>
+      <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D9">OM-D9</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/observer-mvc/tests.html#OM-T6">OM-T6</a>
+    </p>
+  </section>
+  <section class="item" id="OM-R4">
+    <h3><span class="id">OM-R4</span>An edit anywhere shows up everywhere</h3>
+    <ul>
+      <li>Typing a value in the table moves the matching bar and updates the summary.</li>
+      <li>The value column stays typable, so the edit path is real and not simulated.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D1">OM-D1</a>
+      <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D6">OM-D6</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/observer-mvc/tests.html#OM-T1">OM-T1</a>
+    </p>
+  </section>
+  <section class="item" id="OM-R5">
+    <h3><span class="id">OM-R5</span>Rows can come and go</h3>
+    <ul>
+      <li>Adding a row makes it appear in all three views.</li>
+      <li>Removing a row makes it disappear from all three.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D1">OM-D1</a>
+      <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D2">OM-D2</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/observer-mvc/tests.html#OM-T2">OM-T2</a>
+      <a class="box t" href="../../3_Tests/observer-mvc/tests.html#OM-T3">OM-T3</a>
+    </p>
+  </section>
+  <h2>When the subject goes away</h2>
+  <section class="item" id="OM-R6">
+    <h3><span class="id">OM-R6</span>A subject that is gone says so</h3>
+    <ul>
+      <li>The model being destroyed is a state change, so the views observe it like any other.</li>
+      <li>Each hand-written view clears its pointer and prints that the subject is gone.</li>
+      <li>An empty model and a destroyed model must not look the same on screen.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D2">OM-D2</a>
+      <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D3">OM-D3</a>
+      <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D8">OM-D8</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/observer-mvc/tests.html#OM-T5">OM-T5</a>
+    </p>
+  </section>
+  <h2>Automation</h2>
+  <section class="item" id="OM-R7">
+    <h3><span class="id">OM-R7</span>The demo can capture itself</h3>
+    <ul>
+      <li>A command-line flag captures the window to a PNG and exits.</li>
+      <li>That is how the README image is produced, so it never goes stale by hand.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D7">OM-D7</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/observer-mvc/tests.html#OM-T7">OM-T7</a>
+    </p>
+  </section>
+  <h2>Coverage at a glance</h2>
+  <div class="scroller">
+    <table class="matrix">
+      <tr><th>Requirement</th><th>What it asks for</th><th>Design</th><th>Tests</th></tr>
+      <tr><td><a class="box r" href="#OM-R1">OM-R1</a></td><td>One source of truth</td><td><a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D1">OM-D1</a> </td><td><a class="box t" href="../../3_Tests/observer-mvc/tests.html#OM-T1">OM-T1</a> <a class="box t" href="../../3_Tests/observer-mvc/tests.html#OM-T4">OM-T4</a> </td></tr>
+      <tr><td><a class="box r" href="#OM-R2">OM-R2</a></td><td>Three views of the same data</td><td><a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D2">OM-D2</a> <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D3">OM-D3</a> <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D4">OM-D4</a> </td><td><a class="box t" href="../../3_Tests/observer-mvc/tests.html#OM-T1">OM-T1</a> <a class="box t" href="../../3_Tests/observer-mvc/tests.html#OM-T4">OM-T4</a> </td></tr>
+      <tr><td><a class="box r" href="#OM-R3">OM-R3</a></td><td>The views do not know each other</td><td><a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D5">OM-D5</a> <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D9">OM-D9</a> </td><td><a class="box t" href="../../3_Tests/observer-mvc/tests.html#OM-T6">OM-T6</a> </td></tr>
+      <tr><td><a class="box r" href="#OM-R4">OM-R4</a></td><td>An edit anywhere shows up everywhere</td><td><a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D1">OM-D1</a> <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D6">OM-D6</a> </td><td><a class="box t" href="../../3_Tests/observer-mvc/tests.html#OM-T1">OM-T1</a> </td></tr>
+      <tr><td><a class="box r" href="#OM-R5">OM-R5</a></td><td>Rows can come and go</td><td><a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D1">OM-D1</a> <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D2">OM-D2</a> </td><td><a class="box t" href="../../3_Tests/observer-mvc/tests.html#OM-T2">OM-T2</a> <a class="box t" href="../../3_Tests/observer-mvc/tests.html#OM-T3">OM-T3</a> </td></tr>
+      <tr><td><a class="box r" href="#OM-R6">OM-R6</a></td><td>A subject that is gone says so</td><td><a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D2">OM-D2</a> <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D3">OM-D3</a> <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D8">OM-D8</a> </td><td><a class="box t" href="../../3_Tests/observer-mvc/tests.html#OM-T5">OM-T5</a> </td></tr>
+      <tr><td><a class="box r" href="#OM-R7">OM-R7</a></td><td>The demo can capture itself</td><td><a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D7">OM-D7</a> </td><td><a class="box t" href="../../3_Tests/observer-mvc/tests.html#OM-T7">OM-T7</a> </td></tr>
+    </table>
+  </div>
+</main>
+<footer class="doc">
+  <div class="wrap">
+    <p>Observer and MVC &middot; <a href="https://github.com/makarandkokane/code-samples/tree/main/qt/observer-mvc">the code this describes</a> &middot; <a href="https://makarandkokane.github.io/">makarandkokane.github.io</a></p>
+  </div>
+</footer>
+</body>
+</html>

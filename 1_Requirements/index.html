@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Requirements: code-samples</title>
+<link rel="stylesheet" href="../docs.css">
+</head>
+<body>
+<header class="doc">
+  <div class="wrap">
+    <p class="crumb"><a href="../index.html">code-samples</a></p>
+    <p class="kind">Requirements</p>
+  </div>
+</header>
+<main class="wrap">
+  <h1>Requirements</h1>
+  <p class="lede">What each demo had to do, written before the code and kept small enough to check.</p>
+  <nav class="docnav" aria-label="The three documents">
+    <a class="r" href="index.html" aria-current="page">Requirements</a>
+    <a class="d" href="../2_Designs/index.html">Design</a>
+    <a class="t" href="../3_Tests/index.html">Tests</a>
+  </nav>
+  <h2>One per demo</h2>
+  <section class="item">
+    <h3>observer-mvc</h3>
+    <ul>
+      <li>7 requirements: one model, three views that never learn about each other, and what has to happen when the subject is destroyed.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Read</span>
+      <a class="box r" href="observer-mvc/requirements.html">Requirements</a>
+      <span class="tlabel">Alongside</span>
+      <a class="box d" href="../2_Designs/observer-mvc/design.html">Design</a>
+      <a class="box t" href="../3_Tests/observer-mvc/tests.html">Tests</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/tree/main/qt/observer-mvc">GitHub</a>
+    </p>
+  </section>
+  <section class="item">
+    <h3>event-loop-thread</h3>
+    <ul>
+      <li>9 requirements: ten outlets, one owner of a hundred thousand seats, and the no-locks claim the whole demo rests on.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Read</span>
+      <a class="box r" href="event-loop-thread/requirements.html">Requirements</a>
+      <span class="tlabel">Alongside</span>
+      <a class="box d" href="../2_Designs/event-loop-thread/design.html">Design</a>
+      <a class="box t" href="../3_Tests/event-loop-thread/tests.html">Tests</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/tree/main/qt/event-loop-thread">GitHub</a>
+    </p>
+  </section>
+  <section class="item">
+    <h3>linked-list</h3>
+    <ul>
+      <li>10 requirements: the menu, the classics, and the promises that keep a circle from hanging the program.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Read</span>
+      <a class="box r" href="linked-list/requirements.html">Requirements</a>
+      <span class="tlabel">Alongside</span>
+      <a class="box d" href="../2_Designs/linked-list/design.html">Design</a>
+      <a class="box t" href="../3_Tests/linked-list/tests.html">Tests</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/tree/main/data-structures/linked-list">GitHub</a>
+    </p>
+  </section>
+  <h2>How these are written</h2>
+  <section class="item">
+    <ul>
+      <li>Every requirement is one small item with an ID, so a design element or a test can point straight at it.</li>
+      <li>Nothing is written that cannot be checked: each one carries at least one test.</li>
+      <li>Each page ends with a coverage table, the whole demo on one screen.</li>
+    </ul>
+  </section>
+</main>
+<footer class="doc">
+  <div class="wrap">
+    <p>The code lives on <a href="https://github.com/makarandkokane/code-samples">GitHub</a> &middot; <a href="https://makarandkokane.github.io/">makarandkokane.github.io</a></p>
+  </div>
+</footer>
+</body>
+</html>

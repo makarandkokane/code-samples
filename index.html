@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>code-samples</title>
+<link rel="stylesheet" href="docs.css">
+</head>
+<body>
+<header class="doc">
+  <div class="wrap">
+    <p class="crumb"><a href="https://makarandkokane.github.io/">makarandkokane.github.io</a></p>
+    <p class="kind">Code samples</p>
+  </div>
+</header>
+<main class="wrap">
+  <h1>code-samples</h1>
+  <p class="lede">Demo projects, one folder per demo, each carrying the requirements, design and test documents it was built from.</p>
+  <nav class="docnav" aria-label="The three documents">
+    <a class="r" href="1_Requirements/index.html">Requirements</a>
+    <a class="d" href="2_Designs/index.html">Design</a>
+    <a class="t" href="3_Tests/index.html">Tests</a>
+  </nav>
+  <h2>The demos</h2>
+  <section class="item">
+    <h3>observer-mvc</h3>
+    <ul>
+      <li>Qt Widgets. One model, three synchronized views: the observer pattern as Qt ships it.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Documents</span>
+      <a class="box" href="1_Requirements/observer-mvc/requirements.html">Requirements</a>
+      <a class="box" href="2_Designs/observer-mvc/design.html">Design</a>
+      <a class="box" href="3_Tests/observer-mvc/tests.html">Tests</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/tree/main/qt/observer-mvc">GitHub</a>
+    </p>
+  </section>
+  <section class="item">
+    <h3>event-loop-thread</h3>
+    <ul>
+      <li>Qt Widgets. Ten threads sell tickets, one event loop owns 100,000 seats, and there is not a lock in sight.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Documents</span>
+      <a class="box" href="1_Requirements/event-loop-thread/requirements.html">Requirements</a>
+      <a class="box" href="2_Designs/event-loop-thread/design.html">Design</a>
+      <a class="box" href="3_Tests/event-loop-thread/tests.html">Tests</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/tree/main/qt/event-loop-thread">GitHub</a>
+    </p>
+  </section>
+  <section class="item">
+    <h3>linked-list</h3>
+    <ul>
+      <li>Plain C. The classic linked list operations behind a menu: reverse, merge sort, palindrome check, the tortoise and hare, and a circle broken by the Josephus game.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Documents</span>
+      <a class="box" href="1_Requirements/linked-list/requirements.html">Requirements</a>
+      <a class="box" href="2_Designs/linked-list/design.html">Design</a>
+      <a class="box" href="3_Tests/linked-list/tests.html">Tests</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/tree/main/data-structures/linked-list">GitHub</a>
+    </p>
+  </section>
+  <h2>How the documents link up</h2>
+  <section class="item">
+    <ul>
+      <li>Every item carries an ID: the project, the kind, the number. <code>OM-R1</code> is the first requirement of observer-mvc, <code>LL-T5</code> the fifth test of the linked list.</li>
+      <li>A requirement links forward to the design elements and the tests that carry it, and its page ends with a coverage table.</li>
+      <li>Design and test items link back the same way, and a design item also links the source file it describes.</li>
+    </ul>
+  </section>
+</main>
+<footer class="doc">
+  <div class="wrap">
+    <p>The code lives on <a href="https://github.com/makarandkokane/code-samples">GitHub</a> &middot; <a href="https://makarandkokane.github.io/">makarandkokane.github.io</a></p>
+  </div>
+</footer>
+</body>
+</html>

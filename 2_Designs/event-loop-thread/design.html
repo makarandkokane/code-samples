@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Event loop as a thread: design</title>
+<link rel="stylesheet" href="../../docs.css">
+</head>
+<body>
+<header class="doc">
+  <div class="wrap">
+    <p class="crumb"><a href="../../index.html">code-samples</a> &middot; <a href="../index.html">Design</a> &middot; Event loop as a thread</p>
+    <p class="kind">Design</p>
+  </div>
+</header>
+<main class="wrap">
+  <h1>Event loop as a thread: design</h1>
+  <p class="lede">How message passing replaces mutual exclusion, and the two traps that shaped the code.</p>
+  <nav class="docnav" aria-label="Documents for this demo">
+    <a class="r" href="../../1_Requirements/event-loop-thread/requirements.html">Requirements</a>
+    <a class="d" href="design.html" aria-current="page">Design</a>
+    <a class="t" href="../../3_Tests/event-loop-thread/tests.html">Tests</a>
+    <a href="https://github.com/makarandkokane/code-samples/tree/main/qt/event-loop-thread">Code</a>
+  </nav>
+  <h2>The parts</h2>
+  <section class="item" id="EL-D1">
+    <h3><span class="id">EL-D1</span>BoxOffice owns the seats and the loop</h3>
+    <ul>
+      <li>Seat counts are private members of one object that lives on its own thread.</li>
+      <li>One slot applies one request, so the office's loop is the only visitor to that data.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/event-loop-thread/requirements.html#EL-R1">EL-R1</a>
+      <a class="box r" href="../../1_Requirements/event-loop-thread/requirements.html#EL-R2">EL-R2</a>
+      <a class="box r" href="../../1_Requirements/event-loop-thread/requirements.html#EL-R5">EL-R5</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/event-loop-thread/tests.html#EL-T1">EL-T1</a>
+      <a class="box t" href="../../3_Tests/event-loop-thread/tests.html#EL-T7">EL-T7</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/blob/main/qt/event-loop-thread/src/BoxOffice.h">BoxOffice.h</a>
+    </p>
+  </section>
+  <section class="item" id="EL-D2">
+    <h3><span class="id">EL-D2</span>The queue is the mutual exclusion</h3>
+    <ul>
+      <li>Requests are posted, not called, so the loop serialises every access for free.</li>
+      <li>Arrival order becomes service order, which is where first come, first served comes from.</li>
+      <li>Lock ordering, contention and torn reads never arise, because there is nothing to lock.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/event-loop-thread/requirements.html#EL-R2">EL-R2</a>
+      <a class="box r" href="../../1_Requirements/event-loop-thread/requirements.html#EL-R3">EL-R3</a>
+      <a class="box r" href="../../1_Requirements/event-loop-thread/requirements.html#EL-R5">EL-R5</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/event-loop-thread/tests.html#EL-T1">EL-T1</a>
+      <a class="box t" href="../../3_Tests/event-loop-thread/tests.html#EL-T2">EL-T2</a>
+      <a class="box t" href="../../3_Tests/event-loop-thread/tests.html#EL-T7">EL-T7</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/blob/main/qt/event-loop-thread/src/BoxOffice.cpp">BoxOffice.cpp</a>
+    </p>
+  </section>
+  <section class="item" id="EL-D3">
+    <h3><span class="id">EL-D3</span>Every request carries a return address</h3>
+    <ul>
+      <li>A request holds the outlet that sent it, so the confirmation goes back to that one outlet.</li>
+      <li>No broadcast to all ten, and no shared result slot to guard.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/event-loop-thread/requirements.html#EL-R4">EL-R4</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/event-loop-thread/tests.html#EL-T3">EL-T3</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/blob/main/qt/event-loop-thread/src/BoxOffice.h">BoxOffice.h</a>
+    </p>
+  </section>
+  <section class="item" id="EL-D4">
+    <h3><span class="id">EL-D4</span>BookingAgent keeps its own books</h3>
+    <ul>
+      <li>Each outlet paces its own requests and keeps its own tally.</li>
+      <li>It times its own round trip, because the thread that stamps the send is the one that sees the reply.</li>
+      <li>So neither a clock nor a counter is ever shared between threads.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/event-loop-thread/requirements.html#EL-R1">EL-R1</a>
+      <a class="box r" href="../../1_Requirements/event-loop-thread/requirements.html#EL-R4">EL-R4</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/event-loop-thread/tests.html#EL-T3">EL-T3</a>
+      <a class="box t" href="../../3_Tests/event-loop-thread/tests.html#EL-T5">EL-T5</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/blob/main/qt/event-loop-thread/src/BookingAgent.cpp">BookingAgent.cpp</a>
+    </p>
+  </section>
+  <section class="item" id="EL-D5">
+    <h3><span class="id">EL-D5</span>StadiumView paints into a cached image</h3>
+    <ul>
+      <li>One pixel per seat with a one-pixel gap, drawn into a <code>QImage</code> that is kept between frames.</li>
+      <li>The image is blitted with nearest-neighbour scaling, so single seats stay crisp.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/event-loop-thread/requirements.html#EL-R6">EL-R6</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/event-loop-thread/tests.html#EL-T4">EL-T4</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/blob/main/qt/event-loop-thread/src/StadiumView.cpp">StadiumView.cpp</a>
+    </p>
+  </section>
+  <section class="item" id="EL-D6">
+    <h3><span class="id">EL-D6</span>The view is fed on a heartbeat</h3>
+    <ul>
+      <li>Sold seats are batched onto a 33 ms tick and sent as contiguous runs, two integers each.</li>
+      <li>A signal per booking would bury the GUI loop, which is the mistake this demo argues against.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/event-loop-thread/requirements.html#EL-R7">EL-R7</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/event-loop-thread/tests.html#EL-T4">EL-T4</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/blob/main/qt/event-loop-thread/src/BoxOffice.cpp">BoxOffice.cpp</a>
+    </p>
+  </section>
+  <section class="item" id="EL-D7">
+    <h3><span class="id">EL-D7</span>MainWindow mediates, main parses the flags</h3>
+    <ul>
+      <li>The window is the only class that knows the office, the outlets and the views, and the only one that starts threads.</li>
+      <li>The two automation flags are handled at startup, next to the metatype registration.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/event-loop-thread/requirements.html#EL-R9">EL-R9</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/event-loop-thread/tests.html#EL-T8">EL-T8</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/blob/main/qt/event-loop-thread/src/MainWindow.cpp">MainWindow.cpp</a>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/blob/main/qt/event-loop-thread/src/main.cpp">main.cpp</a>
+    </p>
+  </section>
+  <h2>The decisions</h2>
+  <section class="item" id="EL-D8">
+    <h3><span class="id">EL-D8</span>Decision: the office stops first</h3>
+    <ul>
+      <li>Requests hold return addresses, so the outlets must outlive the office.</li>
+      <li>Stop the outlets first and the office keeps replying to deleted objects.</li>
+      <li>The first version did exactly that and crashed on exit, which is why the order is now fixed and commented.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/event-loop-thread/requirements.html#EL-R8">EL-R8</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/event-loop-thread/tests.html#EL-T6">EL-T6</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/blob/main/qt/event-loop-thread/src/MainWindow.cpp">MainWindow.cpp</a>
+    </p>
+  </section>
+</main>
+<footer class="doc">
+  <div class="wrap">
+    <p>Event loop as a thread &middot; <a href="https://github.com/makarandkokane/code-samples/tree/main/qt/event-loop-thread">the code this describes</a> &middot; <a href="https://makarandkokane.github.io/">makarandkokane.github.io</a></p>
+  </div>
+</footer>
+</body>
+</html>

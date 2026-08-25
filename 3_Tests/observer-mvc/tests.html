@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Observer and MVC: tests</title>
+<link rel="stylesheet" href="../../docs.css">
+</head>
+<body>
+<header class="doc">
+  <div class="wrap">
+    <p class="crumb"><a href="../../index.html">code-samples</a> &middot; <a href="../index.html">Tests</a> &middot; Observer and MVC</p>
+    <p class="kind">Tests</p>
+  </div>
+</header>
+<main class="wrap">
+  <h1>Observer and MVC: tests</h1>
+  <p class="lede">How each requirement was checked, and what the check has to produce to pass.</p>
+  <nav class="docnav" aria-label="Documents for this demo">
+    <a class="r" href="../../1_Requirements/observer-mvc/requirements.html">Requirements</a>
+    <a class="d" href="../../2_Designs/observer-mvc/design.html">Design</a>
+    <a class="t" href="tests.html" aria-current="page">Tests</a>
+    <a href="https://github.com/makarandkokane/code-samples/tree/main/qt/observer-mvc">Code</a>
+  </nav>
+  <h2>Behaviour</h2>
+  <section class="item" id="OM-T1">
+    <h3><span class="id">OM-T1</span>An edit reaches the other two views</h3>
+    <ul>
+      <li>Type a new value into the table and press Enter.</li>
+      <li>Pass: the matching bar changes height and the summary total changes by the same amount.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/observer-mvc/requirements.html#OM-R1">OM-R1</a>
+      <a class="box r" href="../../1_Requirements/observer-mvc/requirements.html#OM-R2">OM-R2</a>
+      <a class="box r" href="../../1_Requirements/observer-mvc/requirements.html#OM-R4">OM-R4</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D1">OM-D1</a>
+      <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D6">OM-D6</a>
+    </p>
+  </section>
+  <section class="item" id="OM-T2">
+    <h3><span class="id">OM-T2</span>A new row appears in all three views</h3>
+    <ul>
+      <li>Add a row through the window.</li>
+      <li>Pass: table row, chart bar and summary count all go up by one.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/observer-mvc/requirements.html#OM-R5">OM-R5</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D1">OM-D1</a>
+      <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D2">OM-D2</a>
+    </p>
+  </section>
+  <section class="item" id="OM-T3">
+    <h3><span class="id">OM-T3</span>A removed row disappears from all three</h3>
+    <ul>
+      <li>Remove a row through the window.</li>
+      <li>Pass: the bar goes with it and the summary count drops by one.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/observer-mvc/requirements.html#OM-R5">OM-R5</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D1">OM-D1</a>
+    </p>
+  </section>
+  <section class="item" id="OM-T4">
+    <h3><span class="id">OM-T4</span>The views agree on the numbers</h3>
+    <ul>
+      <li>Read the tallest bar, then read the largest value in the summary line.</li>
+      <li>Pass: both name the same item, and the table shows that item with that value.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/observer-mvc/requirements.html#OM-R1">OM-R1</a>
+      <a class="box r" href="../../1_Requirements/observer-mvc/requirements.html#OM-R2">OM-R2</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D3">OM-D3</a>
+      <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D4">OM-D4</a>
+    </p>
+  </section>
+  <section class="item" id="OM-T5">
+    <h3><span class="id">OM-T5</span>A destroyed model is visible, not fatal</h3>
+    <ul>
+      <li>Destroy the model while the window is open.</li>
+      <li>Pass: chart and summary both say the subject is gone, and the app keeps running.</li>
+      <li>Fail: a blank chart that reads like an empty model, or a crash.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/observer-mvc/requirements.html#OM-R6">OM-R6</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D2">OM-D2</a>
+      <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D3">OM-D3</a>
+      <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D8">OM-D8</a>
+    </p>
+  </section>
+  <h2>Static check</h2>
+  <section class="item" id="OM-T6">
+    <h3><span class="id">OM-T6</span>No view mentions another view</h3>
+    <ul>
+      <li>Search BarChartWidget for SummaryPanel, and SummaryPanel for BarChartWidget.</li>
+      <li>Pass: no hits either way. A hit means the pattern has quietly broken.</li>
+      <li>BarChartWidget's header does name QTableView, in a comment explaining what it observes alongside. Prose, not a reference.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/observer-mvc/requirements.html#OM-R3">OM-R3</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D5">OM-D5</a>
+      <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D9">OM-D9</a>
+    </p>
+  </section>
+  <h2>Automation</h2>
+  <section class="item" id="OM-T7">
+    <h3><span class="id">OM-T7</span>The screenshot flag works unattended</h3>
+    <ul>
+      <li>Run <code>observer-mvc --screenshot shot.png</code>.</li>
+      <li>Pass: a PNG of the window is written and the process exits by itself.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/observer-mvc/requirements.html#OM-R7">OM-R7</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/observer-mvc/design.html#OM-D7">OM-D7</a>
+    </p>
+  </section>
+</main>
+<footer class="doc">
+  <div class="wrap">
+    <p>Observer and MVC &middot; <a href="https://github.com/makarandkokane/code-samples/tree/main/qt/observer-mvc">the code this describes</a> &middot; <a href="https://makarandkokane.github.io/">makarandkokane.github.io</a></p>
+  </div>
+</footer>
+</body>
+</html>

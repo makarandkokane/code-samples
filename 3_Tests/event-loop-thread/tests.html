@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Event loop as a thread: tests</title>
+<link rel="stylesheet" href="../../docs.css">
+</head>
+<body>
+<header class="doc">
+  <div class="wrap">
+    <p class="crumb"><a href="../../index.html">code-samples</a> &middot; <a href="../index.html">Tests</a> &middot; Event loop as a thread</p>
+    <p class="kind">Tests</p>
+  </div>
+</header>
+<main class="wrap">
+  <h1>Event loop as a thread: tests</h1>
+  <p class="lede">How each requirement was checked, including the claim a reader can check without building anything.</p>
+  <nav class="docnav" aria-label="Documents for this demo">
+    <a class="r" href="../../1_Requirements/event-loop-thread/requirements.html">Requirements</a>
+    <a class="d" href="../../2_Designs/event-loop-thread/design.html">Design</a>
+    <a class="t" href="tests.html" aria-current="page">Tests</a>
+    <a href="https://github.com/makarandkokane/code-samples/tree/main/qt/event-loop-thread">Code</a>
+  </nav>
+  <h2>Behaviour</h2>
+  <section class="item" id="EL-T1">
+    <h3><span class="id">EL-T1</span>Every seat is sold exactly once</h3>
+    <ul>
+      <li>Run with <code>--benchmark</code> and let it stop on the last seat.</li>
+      <li>Pass: sold seats total 100,000, and the selling stops on its own, with the window still open.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/event-loop-thread/requirements.html#EL-R1">EL-R1</a>
+      <a class="box r" href="../../1_Requirements/event-loop-thread/requirements.html#EL-R2">EL-R2</a>
+      <a class="box r" href="../../1_Requirements/event-loop-thread/requirements.html#EL-R3">EL-R3</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/event-loop-thread/design.html#EL-D1">EL-D1</a>
+      <a class="box d" href="../../2_Designs/event-loop-thread/design.html#EL-D2">EL-D2</a>
+    </p>
+  </section>
+  <section class="item" id="EL-T2">
+    <h3><span class="id">EL-T2</span>Service order follows arrival order</h3>
+    <ul>
+      <li>Watch the office's handled count against the sum of the outlets' sent counts.</li>
+      <li>Pass: the two track each other with only an in-flight lag, so nothing is dropped.</li>
+      <li>Ordering itself follows from the single queued slot by construction, which is the point: it is not something this run could disprove.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/event-loop-thread/requirements.html#EL-R3">EL-R3</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/event-loop-thread/design.html#EL-D2">EL-D2</a>
+    </p>
+  </section>
+  <section class="item" id="EL-T3">
+    <h3><span class="id">EL-T3</span>The outlet profiles are visible</h3>
+    <ul>
+      <li>Let a run proceed at the default pace and read the block occupancy labels.</li>
+      <li>Pass: the blocks the flood has not reached yet fill only from the outlets that insist on them, and party sizes differ per outlet.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/event-loop-thread/requirements.html#EL-R1">EL-R1</a>
+      <a class="box r" href="../../1_Requirements/event-loop-thread/requirements.html#EL-R4">EL-R4</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/event-loop-thread/design.html#EL-D3">EL-D3</a>
+      <a class="box d" href="../../2_Designs/event-loop-thread/design.html#EL-D4">EL-D4</a>
+    </p>
+  </section>
+  <section class="item" id="EL-T4">
+    <h3><span class="id">EL-T4</span>The window survives a burst</h3>
+    <ul>
+      <li>Press Burst so the outlets stop throttling, then keep clicking and resizing.</li>
+      <li>Pass: the bowl keeps repainting and the controls keep responding while the ground sells out.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/event-loop-thread/requirements.html#EL-R6">EL-R6</a>
+      <a class="box r" href="../../1_Requirements/event-loop-thread/requirements.html#EL-R7">EL-R7</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/event-loop-thread/design.html#EL-D5">EL-D5</a>
+      <a class="box d" href="../../2_Designs/event-loop-thread/design.html#EL-D6">EL-D6</a>
+    </p>
+  </section>
+  <section class="item" id="EL-T5">
+    <h3><span class="id">EL-T5</span>Round trips behave like a queue</h3>
+    <ul>
+      <li>Read the per-outlet round-trip time at the default pace, then during a burst.</li>
+      <li>Pass: single-figure milliseconds at the default pace, and a clear climb under the flood.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/event-loop-thread/requirements.html#EL-R4">EL-R4</a>
+      <a class="box r" href="../../1_Requirements/event-loop-thread/requirements.html#EL-R7">EL-R7</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/event-loop-thread/design.html#EL-D4">EL-D4</a>
+    </p>
+  </section>
+  <section class="item" id="EL-T6">
+    <h3><span class="id">EL-T6</span>Closing mid-sale exits cleanly</h3>
+    <ul>
+      <li>Close the window while requests are in flight.</li>
+      <li>Pass: the process exits with no crash and no late reply to a deleted outlet.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/event-loop-thread/requirements.html#EL-R8">EL-R8</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/event-loop-thread/design.html#EL-D8">EL-D8</a>
+    </p>
+  </section>
+  <h2>Static check</h2>
+  <section class="item" id="EL-T7">
+    <h3><span class="id">EL-T7</span>The no-locks claim survives a search</h3>
+    <ul>
+      <li>Search the demo sources for QMutex, QSemaphore, std::mutex, std::atomic and lock_guard.</li>
+      <li>Pass: no hits. This is the test a reader can run without building anything.</li>
+      <li>The words mutex and lock do appear twice, in the comment and the window title that state the claim.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/event-loop-thread/requirements.html#EL-R5">EL-R5</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/event-loop-thread/design.html#EL-D1">EL-D1</a>
+      <a class="box d" href="../../2_Designs/event-loop-thread/design.html#EL-D2">EL-D2</a>
+    </p>
+  </section>
+  <h2>Automation</h2>
+  <section class="item" id="EL-T8">
+    <h3><span class="id">EL-T8</span>Both flags run unattended</h3>
+    <ul>
+      <li>Run <code>--benchmark</code>, then <code>--benchmark --screenshot shot.png</code>.</li>
+      <li>Pass: the first stops on the last seat, the second also leaves a PNG of the final figures.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/event-loop-thread/requirements.html#EL-R9">EL-R9</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/event-loop-thread/design.html#EL-D7">EL-D7</a>
+    </p>
+  </section>
+</main>
+<footer class="doc">
+  <div class="wrap">
+    <p>Event loop as a thread &middot; <a href="https://github.com/makarandkokane/code-samples/tree/main/qt/event-loop-thread">the code this describes</a> &middot; <a href="https://makarandkokane.github.io/">makarandkokane.github.io</a></p>
+  </div>
+</footer>
+</body>
+</html>

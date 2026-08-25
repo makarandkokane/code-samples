@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Linked list: design</title>
+<link rel="stylesheet" href="../../docs.css">
+</head>
+<body>
+<header class="doc">
+  <div class="wrap">
+    <p class="crumb"><a href="../../index.html">code-samples</a> &middot; <a href="../index.html">Design</a> &middot; Linked list</p>
+    <p class="kind">Design</p>
+  </div>
+</header>
+<main class="wrap">
+  <h1>Linked list: design</h1>
+  <p class="lede">Where each operation lives, and why the file split is what it is.</p>
+  <nav class="docnav" aria-label="Documents for this demo">
+    <a class="r" href="../../1_Requirements/linked-list/requirements.html">Requirements</a>
+    <a class="d" href="design.html" aria-current="page">Design</a>
+    <a class="t" href="../../3_Tests/linked-list/tests.html">Tests</a>
+    <a href="https://github.com/makarandkokane/code-samples/tree/main/data-structures/linked-list">Code</a>
+  </nav>
+  <h2>The parts</h2>
+  <section class="item" id="LL-D1">
+    <h3><span class="id">LL-D1</span>The header is the whole contract</h3>
+    <ul>
+      <li>One node struct and nineteen functions, grouped as building, questions, rearranging, the circle, showing, and the game.</li>
+      <li>Declarations only. Anything a caller does not need is static inside the module.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/linked-list/requirements.html#LL-R1">LL-R1</a>
+      <a class="box r" href="../../1_Requirements/linked-list/requirements.html#LL-R2">LL-R2</a>
+      <a class="box r" href="../../1_Requirements/linked-list/requirements.html#LL-R8">LL-R8</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T1">LL-T1</a>
+      <a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T7">LL-T7</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/blob/main/data-structures/linked-list/LinkedList.h">LinkedList.h</a>
+    </p>
+  </section>
+  <section class="item" id="LL-D2">
+    <h3><span class="id">LL-D2</span>One function per operation</h3>
+    <ul>
+      <li>Every list operation on the menu maps to one list function, and the demo README carries that map.</li>
+      <li>The exceptions the README names are the sample list and clear, conveniences built from the others; the game likewise builds its ring before ListJosephus plays it.</li>
+      <li>The menu file holds one small handler per item: read, call, report.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/linked-list/requirements.html#LL-R2">LL-R2</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T1">LL-T1</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/blob/main/data-structures/linked-list/LinkedList.c">LinkedList.c</a>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/blob/main/data-structures/linked-list/main.c">main.c</a>
+    </p>
+  </section>
+  <section class="item" id="LL-D3">
+    <h3><span class="id">LL-D3</span>The drawing lives with the list</h3>
+    <ul>
+      <li><code>ListPrint</code> draws the chain and appends the node count, and <code>ListCount</code> does the counting.</li>
+      <li>Both walks stop when a circle comes back around to the head, so a circle prints once and says so.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/linked-list/requirements.html#LL-R3">LL-R3</a>
+      <a class="box r" href="../../1_Requirements/linked-list/requirements.html#LL-R7">LL-R7</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T2">LL-T2</a>
+      <a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T6">LL-T6</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/blob/main/data-structures/linked-list/LinkedList.c">LinkedList.c</a>
+    </p>
+  </section>
+  <section class="item" id="LL-D4">
+    <h3><span class="id">LL-D4</span>The menu owns the state and the guard</h3>
+    <ul>
+      <li>Program state is a head pointer and a flag saying whether the tail points back at it.</li>
+      <li>One guard function refuses the linear operations while that flag is set, in the same words every time.</li>
+      <li>One freeing function serves clear, load and quit: it straightens a circle first, then frees the chain.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/linked-list/requirements.html#LL-R7">LL-R7</a>
+      <a class="box r" href="../../1_Requirements/linked-list/requirements.html#LL-R8">LL-R8</a>
+      <a class="box r" href="../../1_Requirements/linked-list/requirements.html#LL-R10">LL-R10</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T6">LL-T6</a>
+      <a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T9">LL-T9</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/blob/main/data-structures/linked-list/main.c">main.c</a>
+    </p>
+  </section>
+  <h2>The classics</h2>
+  <section class="item" id="LL-D5">
+    <h3><span class="id">LL-D5</span>Merge sort as three small functions</h3>
+    <ul>
+      <li>Split in half, merge two sorted lists, and a sort that recurses between them.</li>
+      <li>The merge uses a stack-local dummy head, which removes every &quot;is this the first node&quot; check.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/linked-list/requirements.html#LL-R4">LL-R4</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T3">LL-T3</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/blob/main/data-structures/linked-list/LinkedList.c">LinkedList.c</a>
+    </p>
+  </section>
+  <section class="item" id="LL-D6">
+    <h3><span class="id">LL-D6</span>One two-walker idea, five uses</h3>
+    <ul>
+      <li>The middle node, the nth from the end, loop detection, the palindrome check and the merge sort split are all two walkers.</li>
+      <li>A head start on the fast walker is what changes the answer: the split and the palindrome check stop one node earlier than the middle does.</li>
+      <li>The palindrome check reuses ListReverse twice and repeats the walk to find where the halves meet, then compares inward.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/linked-list/requirements.html#LL-R4">LL-R4</a>
+      <a class="box r" href="../../1_Requirements/linked-list/requirements.html#LL-R6">LL-R6</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T4">LL-T4</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/blob/main/data-structures/linked-list/LinkedList.c">LinkedList.c</a>
+    </p>
+  </section>
+  <h2>The circle</h2>
+  <section class="item" id="LL-D7">
+    <h3><span class="id">LL-D7</span>Rotate by using the circle</h3>
+    <ul>
+      <li>Bend the list into a circle, walk k steps to the node that becomes the tail, cut there.</li>
+      <li>Walking a circle makes a k larger than the length wrap around at no extra cost.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/linked-list/requirements.html#LL-R5">LL-R5</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T5">LL-T5</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/blob/main/data-structures/linked-list/LinkedList.c">LinkedList.c</a>
+    </p>
+  </section>
+  <section class="item" id="LL-D8">
+    <h3><span class="id">LL-D8</span>The game returns a straight list</h3>
+    <ul>
+      <li><code>ListJosephus</code> takes a ring, prints it, unlinks every k-th node, and prints the ring again each round.</li>
+      <li>The survivor comes back as a one-node list, so the caller holds an ordinary list again.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/linked-list/requirements.html#LL-R5">LL-R5</a>
+      <a class="box r" href="../../1_Requirements/linked-list/requirements.html#LL-R10">LL-R10</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T5">LL-T5</a>
+      <a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T9">LL-T9</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/blob/main/data-structures/linked-list/LinkedList.c">LinkedList.c</a>
+    </p>
+  </section>
+  <h2>The decisions</h2>
+  <section class="item" id="LL-D9">
+    <h3><span class="id">LL-D9</span>Decision: numbers are append-only</h3>
+    <ul>
+      <li>The menu enum is ordered by number, but the menu is displayed by group.</li>
+      <li>So a new item can join its group on screen without renumbering anything.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/linked-list/requirements.html#LL-R9">LL-R9</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/linked-list/tests.html#LL-T8">LL-T8</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/blob/main/data-structures/linked-list/main.c">main.c</a>
+    </p>
+  </section>
+</main>
+<footer class="doc">
+  <div class="wrap">
+    <p>Linked list &middot; <a href="https://github.com/makarandkokane/code-samples/tree/main/data-structures/linked-list">the code this describes</a> &middot; <a href="https://makarandkokane.github.io/">makarandkokane.github.io</a></p>
+  </div>
+</footer>
+</body>
+</html>
