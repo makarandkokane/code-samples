@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Binary search tree: requirements</title>
+<link rel="stylesheet" href="../../docs.css">
+</head>
+<body>
+<header class="doc">
+  <div class="wrap">
+    <p class="crumb"><a href="../../index.html">code-samples</a> &middot; <a href="../index.html">Requirements</a> &middot; Binary search tree</p>
+    <p class="kind">Requirements</p>
+  </div>
+</header>
+<main class="wrap">
+  <h1>Binary search tree: requirements</h1>
+  <p class="lede">What the tree demo has to prove, and the shape the proof depends on.</p>
+  <nav class="docnav" aria-label="Documents for this demo">
+    <a class="r" href="requirements.html" aria-current="page">Requirements</a>
+    <a class="d" href="../../2_Designs/binary-search-tree/design.html">Design</a>
+    <a class="t" href="../../3_Tests/binary-search-tree/tests.html">Tests</a>
+    <a href="https://github.com/makarandkokane/code-samples/tree/main/data-structures/binary-search-tree">Code</a>
+  </nav>
+  <h2>The program</h2>
+  <section class="item" id="BT-R1">
+    <h3><span class="id">BT-R1</span>Plain C++17 and nothing else</h3>
+    <ul>
+      <li>C++17 and the standard library only, with no frameworks and nothing to install.</li>
+      <li>One class per file, so each tree and each walk can be read on its own.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/binary-search-tree/design.html#BT-D1">BT-D1</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/binary-search-tree/tests.html#BT-T6">BT-T6</a>
+    </p>
+  </section>
+  <section class="item" id="BT-R2">
+    <h3><span class="id">BT-R2</span>The tree is always on screen</h3>
+    <ul>
+      <li>After every change the tree draws itself sideways, with the value count and the height under it.</li>
+      <li>An empty tree says so instead of printing nothing.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/binary-search-tree/design.html#BT-D1">BT-D1</a>
+      <a class="box d" href="../../2_Designs/binary-search-tree/design.html#BT-D5">BT-D5</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/binary-search-tree/tests.html#BT-T1">BT-T1</a>
+    </p>
+  </section>
+  <section class="item" id="BT-R3">
+    <h3><span class="id">BT-R3</span>Wrong input is answered, not crashed</h3>
+    <ul>
+      <li>Duplicates are refused with a message, junk input is named, and the empty tree turns every operation away politely.</li>
+      <li>The threaded walks refuse to run before the threaded tree is built, and say which menu item builds it.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/binary-search-tree/design.html#BT-D5">BT-D5</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/binary-search-tree/tests.html#BT-T5">BT-T5</a>
+    </p>
+  </section>
+  <h2>The proof</h2>
+  <section class="item" id="BT-R4">
+    <h3><span class="id">BT-R4</span>A search that shows its work</h3>
+    <ul>
+      <li>Every search prints the path it walked and the number of steps it took.</li>
+      <li>Each result is followed by the height, because no search can take more steps than that: the whole O(log N) claim in one line.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/binary-search-tree/design.html#BT-D1">BT-D1</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/binary-search-tree/tests.html#BT-T2">BT-T2</a>
+    </p>
+  </section>
+  <section class="item" id="BT-R5">
+    <h3><span class="id">BT-R5</span>The worst case, then the cure</h3>
+    <ul>
+      <li>Sorted input must produce the degenerate tree, a stick as tall as it has values, and the demo loads that case on purpose.</li>
+      <li>Balancing rebuilds the same values into the flattest possible shape, and the same search must collapse from fifteen steps to four.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/binary-search-tree/design.html#BT-D3">BT-D3</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/binary-search-tree/tests.html#BT-T2">BT-T2</a>
+    </p>
+  </section>
+  <h2>The walks</h2>
+  <section class="item" id="BT-R6">
+    <h3><span class="id">BT-R6</span>Three orders, two styles each</h3>
+    <ul>
+      <li>Preorder, inorder and postorder, each available both as the textbook recursion and as an explicit-stack rewrite.</li>
+      <li>The program compares the two sequences itself and says whether they agree.</li>
+      <li>Inorder on a search tree comes out sorted, and the balance operation depends on it.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/binary-search-tree/design.html#BT-D2">BT-D2</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/binary-search-tree/tests.html#BT-T3">BT-T3</a>
+    </p>
+  </section>
+  <h2>The threaded tree</h2>
+  <section class="item" id="BT-R7">
+    <h3><span class="id">BT-R7</span>A threaded tree, kept apart</h3>
+    <ul>
+      <li>A right-threaded search tree in its own two files, with its own node struct and no dependence on the main tree.</li>
+      <li>Its inorder walk uses no recursion and no stack: every step is one pointer hop.</li>
+      <li>The threads can be listed, one line per spent null pointer.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/binary-search-tree/design.html#BT-D4">BT-D4</a>
+      <a class="box d" href="../../2_Designs/binary-search-tree/design.html#BT-D6">BT-D6</a>
+      <a class="box d" href="../../2_Designs/binary-search-tree/design.html#BT-D7">BT-D7</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/binary-search-tree/tests.html#BT-T4">BT-T4</a>
+    </p>
+  </section>
+  <h2>Coverage at a glance</h2>
+  <div class="scroller">
+    <table class="matrix">
+      <tr><th>Requirement</th><th>What it asks for</th><th>Design</th><th>Tests</th></tr>
+      <tr><td><a class="box r" href="#BT-R1">BT-R1</a></td><td>Plain C++17 and nothing else</td><td><a class="box d" href="../../2_Designs/binary-search-tree/design.html#BT-D1">BT-D1</a> </td><td><a class="box t" href="../../3_Tests/binary-search-tree/tests.html#BT-T6">BT-T6</a> </td></tr>
+      <tr><td><a class="box r" href="#BT-R2">BT-R2</a></td><td>The tree is always on screen</td><td><a class="box d" href="../../2_Designs/binary-search-tree/design.html#BT-D1">BT-D1</a> <a class="box d" href="../../2_Designs/binary-search-tree/design.html#BT-D5">BT-D5</a> </td><td><a class="box t" href="../../3_Tests/binary-search-tree/tests.html#BT-T1">BT-T1</a> </td></tr>
+      <tr><td><a class="box r" href="#BT-R3">BT-R3</a></td><td>Wrong input is answered, not crashed</td><td><a class="box d" href="../../2_Designs/binary-search-tree/design.html#BT-D5">BT-D5</a> </td><td><a class="box t" href="../../3_Tests/binary-search-tree/tests.html#BT-T5">BT-T5</a> </td></tr>
+      <tr><td><a class="box r" href="#BT-R4">BT-R4</a></td><td>A search that shows its work</td><td><a class="box d" href="../../2_Designs/binary-search-tree/design.html#BT-D1">BT-D1</a> </td><td><a class="box t" href="../../3_Tests/binary-search-tree/tests.html#BT-T2">BT-T2</a> </td></tr>
+      <tr><td><a class="box r" href="#BT-R5">BT-R5</a></td><td>The worst case, then the cure</td><td><a class="box d" href="../../2_Designs/binary-search-tree/design.html#BT-D3">BT-D3</a> </td><td><a class="box t" href="../../3_Tests/binary-search-tree/tests.html#BT-T2">BT-T2</a> </td></tr>
+      <tr><td><a class="box r" href="#BT-R6">BT-R6</a></td><td>Three orders, two styles each</td><td><a class="box d" href="../../2_Designs/binary-search-tree/design.html#BT-D2">BT-D2</a> </td><td><a class="box t" href="../../3_Tests/binary-search-tree/tests.html#BT-T3">BT-T3</a> </td></tr>
+      <tr><td><a class="box r" href="#BT-R7">BT-R7</a></td><td>A threaded tree, kept apart</td><td><a class="box d" href="../../2_Designs/binary-search-tree/design.html#BT-D4">BT-D4</a> <a class="box d" href="../../2_Designs/binary-search-tree/design.html#BT-D6">BT-D6</a> <a class="box d" href="../../2_Designs/binary-search-tree/design.html#BT-D7">BT-D7</a> </td><td><a class="box t" href="../../3_Tests/binary-search-tree/tests.html#BT-T4">BT-T4</a> </td></tr>
+    </table>
+  </div>
+</main>
+<footer class="doc">
+  <div class="wrap">
+    <p>Binary search tree &middot; <a href="https://github.com/makarandkokane/code-samples/tree/main/data-structures/binary-search-tree">the code this describes</a> &middot; <a href="https://makarandkokane.github.io/">makarandkokane.github.io</a></p>
+  </div>
+</footer>
+</body>
+</html>

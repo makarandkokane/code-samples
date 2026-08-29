@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Window tree: tests</title>
+<link rel="stylesheet" href="../../docs.css">
+</head>
+<body>
+<header class="doc">
+  <div class="wrap">
+    <p class="crumb"><a href="../../index.html">code-samples</a> &middot; <a href="../index.html">Tests</a> &middot; Window tree</p>
+    <p class="kind">Tests</p>
+  </div>
+</header>
+<main class="wrap">
+  <h1>Window tree: tests</h1>
+  <p class="lede">How each requirement was checked, by piping sessions and reading the logs.</p>
+  <nav class="docnav" aria-label="Documents for this demo">
+    <a class="r" href="../../1_Requirements/window-tree/requirements.html">Requirements</a>
+    <a class="d" href="../../2_Designs/window-tree/design.html">Design</a>
+    <a class="t" href="tests.html" aria-current="page">Tests</a>
+    <a href="https://github.com/makarandkokane/code-samples/tree/main/data-structures/window-tree">Code</a>
+  </nav>
+  <h2>Behaviour</h2>
+  <section class="item" id="WT-T1">
+    <h3><span class="id">WT-T1</span>Every menu item is exercised</h3>
+    <ul>
+      <li>Drive the program by piping a session, one line per keystroke, through all ten menu items and back out at quit.</li>
+      <li>Pass: every item answers, and so do the mistakes: an unknown widget name, a click on a hidden widget, junk where numbers belong, and an unknown menu choice.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/window-tree/requirements.html#WT-R2">WT-R2</a>
+      <a class="box r" href="../../1_Requirements/window-tree/requirements.html#WT-R4">WT-R4</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D5">WT-D5</a>
+      <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D6">WT-D6</a>
+    </p>
+  </section>
+  <section class="item" id="WT-T2">
+    <h3><span class="id">WT-T2</span>The layout logs mirror each other</h3>
+    <ul>
+      <li>Run the loud layout and read the measure log against the arrange log.</li>
+      <li>Pass: the same nine widgets appear in both, children above their parent in one and below it in the other.</li>
+      <li>The mirror is read on the fixed demo tree, by eye; no harness asserts it.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/window-tree/requirements.html#WT-R3">WT-R3</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D1">WT-D1</a>
+      <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D7">WT-D7</a>
+    </p>
+  </section>
+  <section class="item" id="WT-T3">
+    <h3><span class="id">WT-T3</span>The story of a click, three ways</h3>
+    <ul>
+      <li>Click Reset while Advanced is disabled, enable Advanced and click again, then click Help.</li>
+      <li>Pass: the first click is swallowed at Advanced, the second bubbles up to Settings and the form resets, and Help's action falls off the top, dropped.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/window-tree/requirements.html#WT-R5">WT-R5</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D2">WT-D2</a>
+      <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D4">WT-D4</a>
+    </p>
+  </section>
+  <section class="item" id="WT-T4">
+    <h3><span class="id">WT-T4</span>The veto, the save, the close</h3>
+    <ul>
+      <li>Type into the name box so the star appears, ask the window to close, then click Save and ask again.</li>
+      <li>Pass: the first ask shows the box vetoing in its postorder place and the window staying open; after the save the same walk agrees and the demo ends on its own.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/window-tree/requirements.html#WT-R6">WT-R6</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D2">WT-D2</a>
+      <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D3">WT-D3</a>
+    </p>
+  </section>
+  <section class="item" id="WT-T5">
+    <h3><span class="id">WT-T5</span>Hiding reshapes the window</h3>
+    <ul>
+      <li>Hide the Advanced panel, then look at the screen, the outline, and a click aimed at Reset by name.</li>
+      <li>Pass: the window redraws three rows shorter, the outline tags the panel hidden, and the click is refused because nothing is there to click.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/window-tree/requirements.html#WT-R4">WT-R4</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D6">WT-D6</a>
+    </p>
+  </section>
+  <h2>Static check</h2>
+  <section class="item" id="WT-T6">
+    <h3><span class="id">WT-T6</span>It builds clean and owns cleanly</h3>
+    <ul>
+      <li>Build Release through CMake with Visual Studio 2022, run clang-format across the sources, and search them for new and delete.</li>
+      <li>Pass: the build succeeds, the format check reports nothing to change, and the search finds neither word: every widget changes hands as a <code>unique_ptr</code>.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/window-tree/requirements.html#WT-R1">WT-R1</a>
+      <a class="box r" href="../../1_Requirements/window-tree/requirements.html#WT-R7">WT-R7</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D1">WT-D1</a>
+    </p>
+  </section>
+</main>
+<footer class="doc">
+  <div class="wrap">
+    <p>Window tree &middot; <a href="https://github.com/makarandkokane/code-samples/tree/main/data-structures/window-tree">the code this describes</a> &middot; <a href="https://makarandkokane.github.io/">makarandkokane.github.io</a></p>
+  </div>
+</footer>
+</body>
+</html>

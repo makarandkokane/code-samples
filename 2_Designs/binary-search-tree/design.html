@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Binary search tree: design</title>
+<link rel="stylesheet" href="../../docs.css">
+</head>
+<body>
+<header class="doc">
+  <div class="wrap">
+    <p class="crumb"><a href="../../index.html">code-samples</a> &middot; <a href="../index.html">Design</a> &middot; Binary search tree</p>
+    <p class="kind">Design</p>
+  </div>
+</header>
+<main class="wrap">
+  <h1>Binary search tree: design</h1>
+  <p class="lede">Two trees, two ownership models, and the walks that tell them apart.</p>
+  <nav class="docnav" aria-label="Documents for this demo">
+    <a class="r" href="../../1_Requirements/binary-search-tree/requirements.html">Requirements</a>
+    <a class="d" href="design.html" aria-current="page">Design</a>
+    <a class="t" href="../../3_Tests/binary-search-tree/tests.html">Tests</a>
+    <a href="https://github.com/makarandkokane/code-samples/tree/main/data-structures/binary-search-tree">Code</a>
+  </nav>
+  <h2>The parts</h2>
+  <section class="item" id="BT-D1">
+    <h3><span class="id">BT-D1</span>BinarySearchTree owns the nodes and the answers</h3>
+    <ul>
+      <li>Nodes are owned through <code>unique_ptr</code>, so the tree's shape and the memory management are the same picture.</li>
+      <li>Insert and remove work through the owning slot, remove handling the classic three cases with the inorder successor.</li>
+      <li>Search returns the path and the step count instead of a bare yes or no, which is what lets the menu tell the O(log N) story.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/binary-search-tree/requirements.html#BT-R1">BT-R1</a>
+      <a class="box r" href="../../1_Requirements/binary-search-tree/requirements.html#BT-R2">BT-R2</a>
+      <a class="box r" href="../../1_Requirements/binary-search-tree/requirements.html#BT-R4">BT-R4</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/binary-search-tree/tests.html#BT-T1">BT-T1</a>
+      <a class="box t" href="../../3_Tests/binary-search-tree/tests.html#BT-T2">BT-T2</a>
+      <a class="box t" href="../../3_Tests/binary-search-tree/tests.html#BT-T6">BT-T6</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/blob/main/data-structures/binary-search-tree/BinarySearchTree.h">BinarySearchTree.h</a>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/blob/main/data-structures/binary-search-tree/BinarySearchTree.cpp">BinarySearchTree.cpp</a>
+    </p>
+  </section>
+  <section class="item" id="BT-D2">
+    <h3><span class="id">BT-D2</span>Six walks: three orders, two styles</h3>
+    <ul>
+      <li>The recursive versions are the three-line textbook functions.</li>
+      <li>The iterative ones spell out what the call stack was doing: preorder stacks subtrees still owed a visit, inorder slides down left edges and remembers the way back, postorder runs a mirrored preorder and reverses it.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/binary-search-tree/requirements.html#BT-R6">BT-R6</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/binary-search-tree/tests.html#BT-T3">BT-T3</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/blob/main/data-structures/binary-search-tree/BinarySearchTree.cpp">BinarySearchTree.cpp</a>
+    </p>
+  </section>
+  <section class="item" id="BT-D3">
+    <h3><span class="id">BT-D3</span>Balance is binary search as a shape</h3>
+    <ul>
+      <li>An inorder walk hands over the values already sorted.</li>
+      <li>The rebuild puts the middle of every range at the root of every subtree, halving the range at each level.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/binary-search-tree/requirements.html#BT-R5">BT-R5</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/binary-search-tree/tests.html#BT-T2">BT-T2</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/blob/main/data-structures/binary-search-tree/BinarySearchTree.cpp">BinarySearchTree.cpp</a>
+    </p>
+  </section>
+  <section class="item" id="BT-D4">
+    <h3><span class="id">BT-D4</span>ThreadedTree stands alone</h3>
+    <ul>
+      <li>Its node spends the null right pointer on a flagged link to the inorder successor.</li>
+      <li>Insert keeps the threads true: a new left child threads to its parent, a new right child inherits the parent's old thread.</li>
+      <li>The walk is two moves, slide to the leftmost node and hop to the successor, repeated until the last thread marks the end.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/binary-search-tree/requirements.html#BT-R7">BT-R7</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/binary-search-tree/tests.html#BT-T4">BT-T4</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/blob/main/data-structures/binary-search-tree/ThreadedTree.h">ThreadedTree.h</a>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/blob/main/data-structures/binary-search-tree/ThreadedTree.cpp">ThreadedTree.cpp</a>
+    </p>
+  </section>
+  <section class="item" id="BT-D5">
+    <h3><span class="id">BT-D5</span>main keeps only the menu</h3>
+    <ul>
+      <li>The two trees, one small handler per item, and the guards: empty-tree refusals, junk input named, the threaded walks gated on the build.</li>
+      <li>After every change one function redraws the tree, so the always-on-screen rule lives in one place.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/binary-search-tree/requirements.html#BT-R2">BT-R2</a>
+      <a class="box r" href="../../1_Requirements/binary-search-tree/requirements.html#BT-R3">BT-R3</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/binary-search-tree/tests.html#BT-T1">BT-T1</a>
+      <a class="box t" href="../../3_Tests/binary-search-tree/tests.html#BT-T5">BT-T5</a>
+      <span class="tlabel">Code</span>
+      <a class="box" href="https://github.com/makarandkokane/code-samples/blob/main/data-structures/binary-search-tree/main.cpp">main.cpp</a>
+    </p>
+  </section>
+  <h2>The decisions</h2>
+  <section class="item" id="BT-D6">
+    <h3><span class="id">BT-D6</span>Decision: two ownership models on purpose</h3>
+    <ul>
+      <li>The main tree owns children as <code>unique_ptr</code>; the threaded tree manages its nodes by hand.</li>
+      <li>A thread is a non-owning link, and an owning pointer type cannot say so; forcing one model onto both trees would misdescribe one of them.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/binary-search-tree/requirements.html#BT-R7">BT-R7</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/binary-search-tree/tests.html#BT-T6">BT-T6</a>
+    </p>
+  </section>
+  <section class="item" id="BT-D7">
+    <h3><span class="id">BT-D7</span>Decision: the snapshot is fed in preorder</h3>
+    <ul>
+      <li>The threaded tree is built from the main tree's preorder sequence, which reproduces its exact shape.</li>
+      <li>Feeding the inorder sequence instead would rebuild the sorted-input stick, the very shape the demo warns about.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/binary-search-tree/requirements.html#BT-R7">BT-R7</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/binary-search-tree/tests.html#BT-T4">BT-T4</a>
+    </p>
+  </section>
+</main>
+<footer class="doc">
+  <div class="wrap">
+    <p>Binary search tree &middot; <a href="https://github.com/makarandkokane/code-samples/tree/main/data-structures/binary-search-tree">the code this describes</a> &middot; <a href="https://makarandkokane.github.io/">makarandkokane.github.io</a></p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Binary search tree: tests</title>
+<link rel="stylesheet" href="../../docs.css">
+</head>
+<body>
+<header class="doc">
+  <div class="wrap">
+    <p class="crumb"><a href="../../index.html">code-samples</a> &middot; <a href="../index.html">Tests</a> &middot; Binary search tree</p>
+    <p class="kind">Tests</p>
+  </div>
+</header>
+<main class="wrap">
+  <h1>Binary search tree: tests</h1>
+  <p class="lede">How each requirement was checked, with the searches counted and the walks compared.</p>
+  <nav class="docnav" aria-label="Documents for this demo">
+    <a class="r" href="../../1_Requirements/binary-search-tree/requirements.html">Requirements</a>
+    <a class="d" href="../../2_Designs/binary-search-tree/design.html">Design</a>
+    <a class="t" href="tests.html" aria-current="page">Tests</a>
+    <a href="https://github.com/makarandkokane/code-samples/tree/main/data-structures/binary-search-tree">Code</a>
+  </nav>
+  <h2>Behaviour</h2>
+  <section class="item" id="BT-T1">
+    <h3><span class="id">BT-T1</span>Every menu item is exercised</h3>
+    <ul>
+      <li>Drive the program by piping a session, one line per keystroke, through all fifteen menu items and back out at quit.</li>
+      <li>Pass: every item answers, the tree redraws after every change, and the count line matches the drawing.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/binary-search-tree/requirements.html#BT-R2">BT-R2</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/binary-search-tree/design.html#BT-D1">BT-D1</a>
+      <a class="box d" href="../../2_Designs/binary-search-tree/design.html#BT-D5">BT-D5</a>
+    </p>
+  </section>
+  <section class="item" id="BT-T2">
+    <h3><span class="id">BT-T2</span>The stick, the balance, and the counted search</h3>
+    <ul>
+      <li>Load the worst case, search for the deepest value, balance, and search again.</li>
+      <li>Pass: the first search reports found in 15 steps at height 15, the balance reports height 15 to 4, the second search reports the same value found in 4 steps, and the inorder is unchanged.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/binary-search-tree/requirements.html#BT-R4">BT-R4</a>
+      <a class="box r" href="../../1_Requirements/binary-search-tree/requirements.html#BT-R5">BT-R5</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/binary-search-tree/design.html#BT-D1">BT-D1</a>
+      <a class="box d" href="../../2_Designs/binary-search-tree/design.html#BT-D3">BT-D3</a>
+    </p>
+  </section>
+  <section class="item" id="BT-T3">
+    <h3><span class="id">BT-T3</span>The walks check themselves</h3>
+    <ul>
+      <li>Run all three walk items on the sample tree.</li>
+      <li>Pass: each prints the recursive and the iterative sequence and then its own verdict that the two agree, and the inorder line is sorted.</li>
+      <li>The comparison is in the program, so it runs on every tree a user builds, not just this session's.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/binary-search-tree/requirements.html#BT-R6">BT-R6</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/binary-search-tree/design.html#BT-D2">BT-D2</a>
+    </p>
+  </section>
+  <section class="item" id="BT-T4">
+    <h3><span class="id">BT-T4</span>The threads carry a full walk</h3>
+    <ul>
+      <li>Build the threaded tree from the sample values, walk it by threads, and list the threads.</li>
+      <li>Pass: the walk equals the main tree's inorder, every node without a right child appears in the thread report, and the rightmost one marks the end of the walk.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/binary-search-tree/requirements.html#BT-R7">BT-R7</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/binary-search-tree/design.html#BT-D4">BT-D4</a>
+      <a class="box d" href="../../2_Designs/binary-search-tree/design.html#BT-D7">BT-D7</a>
+    </p>
+  </section>
+  <section class="item" id="BT-T5">
+    <h3><span class="id">BT-T5</span>Wrong input, answered</h3>
+    <ul>
+      <li>Search, balance and thread an empty tree, walk the threads before building them, insert a duplicate, delete an absent value, and type junk at both prompts.</li>
+      <li>Pass: each case gets its own sentence and the program carries on.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/binary-search-tree/requirements.html#BT-R3">BT-R3</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/binary-search-tree/design.html#BT-D5">BT-D5</a>
+    </p>
+  </section>
+  <h2>Static check</h2>
+  <section class="item" id="BT-T6">
+    <h3><span class="id">BT-T6</span>It builds clean and owns what it says</h3>
+    <ul>
+      <li>Build Release through CMake with Visual Studio 2022, run clang-format across the sources, and search them for new and delete.</li>
+      <li>Pass: the build succeeds, the format check reports nothing to change, and the only new and delete in the demo are ThreadedTree's, exactly as the ownership decision states.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Requirements</span>
+      <a class="box r" href="../../1_Requirements/binary-search-tree/requirements.html#BT-R1">BT-R1</a>
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/binary-search-tree/design.html#BT-D1">BT-D1</a>
+      <a class="box d" href="../../2_Designs/binary-search-tree/design.html#BT-D6">BT-D6</a>
+    </p>
+  </section>
+</main>
+<footer class="doc">
+  <div class="wrap">
+    <p>Binary search tree &middot; <a href="https://github.com/makarandkokane/code-samples/tree/main/data-structures/binary-search-tree">the code this describes</a> &middot; <a href="https://makarandkokane.github.io/">makarandkokane.github.io</a></p>
+  </div>
+</footer>
+</body>
+</html>

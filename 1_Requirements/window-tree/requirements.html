@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Window tree: requirements</title>
+<link rel="stylesheet" href="../../docs.css">
+</head>
+<body>
+<header class="doc">
+  <div class="wrap">
+    <p class="crumb"><a href="../../index.html">code-samples</a> &middot; <a href="../index.html">Requirements</a> &middot; Window tree</p>
+    <p class="kind">Requirements</p>
+  </div>
+</header>
+<main class="wrap">
+  <h1>Window tree: requirements</h1>
+  <p class="lede">What the windowing demo has to show, and the walk each job has to be.</p>
+  <nav class="docnav" aria-label="Documents for this demo">
+    <a class="r" href="requirements.html" aria-current="page">Requirements</a>
+    <a class="d" href="../../2_Designs/window-tree/design.html">Design</a>
+    <a class="t" href="../../3_Tests/window-tree/tests.html">Tests</a>
+    <a href="https://github.com/makarandkokane/code-samples/tree/main/data-structures/window-tree">Code</a>
+  </nav>
+  <h2>The program</h2>
+  <section class="item" id="WT-R1">
+    <h3><span class="id">WT-R1</span>Plain C++17 and nothing else</h3>
+    <ul>
+      <li>C++17 and the standard library only, with no frameworks and nothing to install.</li>
+      <li>One class per file, so each node type and each walk can be read on its own.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D1">WT-D1</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/window-tree/tests.html#WT-T6">WT-T6</a>
+    </p>
+  </section>
+  <section class="item" id="WT-R2">
+    <h3><span class="id">WT-R2</span>A form you can aim at</h3>
+    <ul>
+      <li>A settings window: a name box, Save, Close and Help, and an Advanced panel that starts disabled.</li>
+      <li>Everything draws on a 38x16 character canvas with coordinate rulers, so a click can be aimed by eye.</li>
+      <li>The screen redraws after every change.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D5">WT-D5</a>
+      <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D6">WT-D6</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/window-tree/tests.html#WT-T1">WT-T1</a>
+    </p>
+  </section>
+  <h2>The four walks</h2>
+  <section class="item" id="WT-R3">
+    <h3><span class="id">WT-R3</span>Layout: measure up, arrange down</h3>
+    <ul>
+      <li>Measuring is postorder: a container cannot know its size until every child has reported.</li>
+      <li>Arranging is preorder: a child cannot know where it sits until its parent has fixed its origin.</li>
+      <li>The two logs must read as mirror images of each other.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D1">WT-D1</a>
+      <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D7">WT-D7</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/window-tree/tests.html#WT-T2">WT-T2</a>
+    </p>
+  </section>
+  <section class="item" id="WT-R4">
+    <h3><span class="id">WT-R4</span>Painting puts children on top</h3>
+    <ul>
+      <li>Painting is preorder for a visible reason: parents draw first, children draw over them, which is what puts widgets inside their window.</li>
+      <li>A hidden widget takes its whole subtree off the screen, and the window reshapes without it.</li>
+      <li>A disabled widget dims everything below it, drawn in parentheses.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D1">WT-D1</a>
+      <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D4">WT-D4</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/window-tree/tests.html#WT-T1">WT-T1</a>
+      <a class="box t" href="../../3_Tests/window-tree/tests.html#WT-T5">WT-T5</a>
+    </p>
+  </section>
+  <section class="item" id="WT-R5">
+    <h3><span class="id">WT-R5</span>A click travels the DOM's route</h3>
+    <ul>
+      <li>A hit test descends to the deepest widget under the point.</li>
+      <li>Capture walks down from the root, and a disabled ancestor swallows the click before the target ever sees it.</li>
+      <li>The target raises an action that bubbles up until an ancestor knows what it means; unhandled, it falls off the top and is dropped, not crashed.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D1">WT-D1</a>
+      <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D2">WT-D2</a>
+      <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D4">WT-D4</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/window-tree/tests.html#WT-T3">WT-T3</a>
+    </p>
+  </section>
+  <section class="item" id="WT-R6">
+    <h3><span class="id">WT-R6</span>Closing is a question</h3>
+    <ul>
+      <li>A postorder walk where every child answers before its parent decides.</li>
+      <li>One unsaved text box anywhere below keeps the window open.</li>
+      <li>Hidden widgets are asked too: invisible unsaved work is still unsaved work.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D1">WT-D1</a>
+      <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D2">WT-D2</a>
+      <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D3">WT-D3</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/window-tree/tests.html#WT-T4">WT-T4</a>
+    </p>
+  </section>
+  <h2>Ownership</h2>
+  <section class="item" id="WT-R7">
+    <h3><span class="id">WT-R7</span>The tree is the ownership</h3>
+    <ul>
+      <li>Every widget owns its children through <code>unique_ptr</code>, so the tree's shape and the memory management are the same picture.</li>
+      <li>No other code frees a widget, and a reader can check it: the demo contains no new and no delete.</li>
+    </ul>
+    <p class="trace">
+      <span class="tlabel">Design</span>
+      <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D1">WT-D1</a>
+      <span class="tlabel">Tests</span>
+      <a class="box t" href="../../3_Tests/window-tree/tests.html#WT-T6">WT-T6</a>
+    </p>
+  </section>
+  <h2>Coverage at a glance</h2>
+  <div class="scroller">
+    <table class="matrix">
+      <tr><th>Requirement</th><th>What it asks for</th><th>Design</th><th>Tests</th></tr>
+      <tr><td><a class="box r" href="#WT-R1">WT-R1</a></td><td>Plain C++17 and nothing else</td><td><a class="box d" href="../../2_Designs/window-tree/design.html#WT-D1">WT-D1</a> </td><td><a class="box t" href="../../3_Tests/window-tree/tests.html#WT-T6">WT-T6</a> </td></tr>
+      <tr><td><a class="box r" href="#WT-R2">WT-R2</a></td><td>A form you can aim at</td><td><a class="box d" href="../../2_Designs/window-tree/design.html#WT-D5">WT-D5</a> <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D6">WT-D6</a> </td><td><a class="box t" href="../../3_Tests/window-tree/tests.html#WT-T1">WT-T1</a> </td></tr>
+      <tr><td><a class="box r" href="#WT-R3">WT-R3</a></td><td>Layout: measure up, arrange down</td><td><a class="box d" href="../../2_Designs/window-tree/design.html#WT-D1">WT-D1</a> <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D7">WT-D7</a> </td><td><a class="box t" href="../../3_Tests/window-tree/tests.html#WT-T2">WT-T2</a> </td></tr>
+      <tr><td><a class="box r" href="#WT-R4">WT-R4</a></td><td>Painting puts children on top</td><td><a class="box d" href="../../2_Designs/window-tree/design.html#WT-D1">WT-D1</a> <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D4">WT-D4</a> </td><td><a class="box t" href="../../3_Tests/window-tree/tests.html#WT-T1">WT-T1</a> <a class="box t" href="../../3_Tests/window-tree/tests.html#WT-T5">WT-T5</a> </td></tr>
+      <tr><td><a class="box r" href="#WT-R5">WT-R5</a></td><td>A click travels the DOM's route</td><td><a class="box d" href="../../2_Designs/window-tree/design.html#WT-D1">WT-D1</a> <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D2">WT-D2</a> <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D4">WT-D4</a> </td><td><a class="box t" href="../../3_Tests/window-tree/tests.html#WT-T3">WT-T3</a> </td></tr>
+      <tr><td><a class="box r" href="#WT-R6">WT-R6</a></td><td>Closing is a question</td><td><a class="box d" href="../../2_Designs/window-tree/design.html#WT-D1">WT-D1</a> <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D2">WT-D2</a> <a class="box d" href="../../2_Designs/window-tree/design.html#WT-D3">WT-D3</a> </td><td><a class="box t" href="../../3_Tests/window-tree/tests.html#WT-T4">WT-T4</a> </td></tr>
+      <tr><td><a class="box r" href="#WT-R7">WT-R7</a></td><td>The tree is the ownership</td><td><a class="box d" href="../../2_Designs/window-tree/design.html#WT-D1">WT-D1</a> </td><td><a class="box t" href="../../3_Tests/window-tree/tests.html#WT-T6">WT-T6</a> </td></tr>
+    </table>
+  </div>
+</main>
+<footer class="doc">
+  <div class="wrap">
+    <p>Window tree &middot; <a href="https://github.com/makarandkokane/code-samples/tree/main/data-structures/window-tree">the code this describes</a> &middot; <a href="https://makarandkokane.github.io/">makarandkokane.github.io</a></p>
+  </div>
+</footer>
+</body>
+</html>
